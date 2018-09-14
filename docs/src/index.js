@@ -1,1 +1,1 @@
-import zrototype from '../../lib/zrototype';
+import { calcProtoChain } from '../../lib/zrototype';

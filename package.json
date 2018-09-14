@@ -3,6 +3,7 @@
   "description": "create graph of prototype for 撕逼.",
   "version": "0.0.2",
   "author": "zon<zqzhong1211@163.com>",
+  "repository": "git@github.com:zz1211/zrototype.git",
   "license": "MIT",
   "scripts": {
     "dev:doc": "babel docs/src -d docs/dist --watch & webpack-dev-server -d --config webpack.config.js",

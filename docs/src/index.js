@@ -26,6 +26,9 @@ const zrototype = new Zrototype({
   }, {
     $$name: 'obj3',
     $$value: obj3
+  }, {
+    $$name: 'Function',
+    $$value: Function
   }]
 });
 

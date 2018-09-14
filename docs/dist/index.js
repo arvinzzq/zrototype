@@ -32,6 +32,9 @@ var zrototype = new _zrototype2.default({
   }, {
     $$name: 'obj3',
     $$value: obj3
+  }, {
+    $$name: 'Function',
+    $$value: Function
   }]
 });
 

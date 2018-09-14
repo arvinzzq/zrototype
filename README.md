@@ -1,5 +1,8 @@
+[![npm version](https://img.shields.io/npm/v/zrototype.svg)](https://www.npmjs.com/package/zrototype)
+[![npm download](https://img.shields.io/npm/dt/zrototype.svg)](https://www.npmjs.com/package/zrototype)
+
 # zrototype
-zrototype create graph↔️ of prototype of given objects.
+zrototype create graph ↔️ of prototype of given objects.
 
 ## Background
 
@@ -8,6 +11,8 @@ zrototype create graph↔️ of prototype of given objects.
 ## Usage
 
 ### Demo
+
+⚠️ If code compression is turn on, the name of function is the compressed name.
 
 ```javascript
 import Zrototype from 'zrototype';
@@ -55,3 +60,9 @@ zrototype.draw({
 <p align="center">
   <img width="400px" src="./demo.png" />
 </p>
+
+## Development
+
+```
+npm run dev
+```

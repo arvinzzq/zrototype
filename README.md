@@ -1,2 +1,2 @@
-# teehee-module-template
-teehee template of module
+# zrototype
+zrototype create graph↔️ of prototype of given objects.

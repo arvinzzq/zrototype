@@ -1,0 +1,1 @@
+import zrototype from '../../lib/zrototype';

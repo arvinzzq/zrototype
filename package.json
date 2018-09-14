@@ -1,0 +1,26 @@
+{
+  "name": "zrototype",
+  "description": "create graph of prototype for &quot;撕逼&quot;.",
+  "version": "0.0.1",
+  "author": "zon<zqzhong1211@163.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev:doc": "babel docs/src -d docs/dist --watch",
+    "dev:build": "babel src -d lib --watch",
+    "dev": "npm run dev:doc & npm run dev:build",
+    "prod": "babel src -d lib",
+    "release": "npm run build && npm publish"
+  },
+  "keywords": [
+    "graph",
+    "prototype"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1"
+  },
+  "dependencies": {
+    "@antv/g6": "^2.1.1-beta"
+  }
+}

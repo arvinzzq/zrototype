@@ -103,7 +103,8 @@ class Zrototype {
       style() {
         return {
           stroke: '#b3b3b3',
-          lineWidth: 2
+          lineWidth: 2,
+          endArrow: true
         }
       }
     });   

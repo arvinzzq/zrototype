@@ -12,7 +12,7 @@ zrototype create graph ↔️ of prototype of given objects.
 
 ### Demo
 
-⚠️ If code compression is turn on, the name of function is the compressed name.
+⚠️ If code compression is turn on, the name of function is the compressed name.
 
 ```javascript
 import Zrototype from 'zrototype';

@@ -6,13 +6,26 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function calcEdge(chain, index1, index2) {
+  const source = chain[index1];
+  const target = chain[index2];
+  const edge = {
+    id: `${source.id}-${target.id}`,
+    source,
+    target
+  };
+  return edge;
+}
+
+const objToArr = obj => Object.keys(obj).map(key => obj[key]);
+
 class Zrototype {
   constructor(options) {
     const { objects, props } = options;
     this.nodeHashMap = {};
     this.edgeHashMap = {};
     this.objProtoMap = new Map();
-    this.collectNodeEdges(objects);
+    this.collectNodesEdges(objects);
   }
 
   addNode(node) {
@@ -27,7 +40,7 @@ class Zrototype {
     }
   }
 
-  collectNodeEdges(objects) {
+  collectNodesEdges(objects) {
     if (!(objects instanceof Array)) {
       throw new Error('objects must be type of Array');
     }
@@ -35,58 +48,86 @@ class Zrototype {
       const chain = [];
       this.calcProtoChain(object, chain);
       this.objProtoMap.set(object, chain);
-    })
+    });
   }
 
   calcProtoChain(obj, chain) {
     if (!(chain instanceof Array)) {
       throw new Error('chain must be type of Array');
     }
+    const id = obj.$$name || `${obj.constructor && obj.constructor.name}.prototype` || obj.toString();
     const node = {
-      id: obj.name || `${obj.constructor && obj.constructor.name}.prototype` || obj.toString(),
-      value: obj.value || obj
+      id,
+      value: obj.$$value || obj
     };
     chain.push(node);
     this.addNode(node);
     if (chain.length > 1) {
-      const source = chain[chain.length - 2];
-      const target = chain[chain.length - 1]
-      const edge = {
-        id: `${source.id}-${target.id}`,
-        source,
-        target
-      }
-      this.addEdge(edge);
+      this.addEdge(calcEdge(chain, chain.length - 2, chain.length - 1));
     }
-    const proto = Object.getPrototypeOf(obj.value || obj);
+    const proto = Object.getPrototypeOf(obj.$$value || obj);
     if (proto) {
-      calcProtoChain(proto, chain);
+      this.calcProtoChain(proto, chain);
     } else {
-      chain.push({
+      const nodeNull = {
         id: 'null',
         value: null
-      });
+      };
+      chain.push(nodeNull);
+      this.addNode(nodeNull);
+      this.addEdge(calcEdge(chain, chain.length - 2, chain.length - 1));
     }
   }
 
   getDrawData(width, height) {
-    return {
-      nodes: this.nodeHashMap.map(node => ({
+    const data = {
+      nodes: objToArr(this.nodeHashMap).map(node => ({
         id: node.id,
-        x: getRandomInt(width, height),
-        y: getRandomInt(width, height)
+        x: getRandomInt(0, width),
+        y: getRandomInt(0, height),
+        label: node.id
       })),
-      edges: this.edgeHashMap
-    }
+      edges: objToArr(this.edgeHashMap).map(edge => ({
+        id: edge.id,
+        source: edge.source.id,
+        target: edge.target.id
+      }))
+    };
+    return data;
   }
 
-  draw(props) {
-    const { width = 500, height = 500 } = props;    
+  draw(props = {}) {
+    const { width = 500, height = 500 } = props;
     const graph = new G6.Graph(props);
+    graph.edge({
+      style() {
+        return {
+          stroke: '#b3b3b3',
+          lineWidth: 2
+        }
+      }
+    });   
     graph.read(this.getDrawData(width, height));
+    let node;
+    let dx;
+    let dy;
+    graph.on('node:dragstart', ev=>{
+      const {item} = ev;
+      const model = item.getModel();
+      node = item;
+      dx = model.x - ev.x;
+      dy = model.y - ev.y;
+    });
+    graph.on('node:drag', ev=>{
+      node && graph.update(node, {
+        x: ev.x+dx,
+        y: ev.y+dy
+      });
+    });
+    graph.on('node:dragend', ev=>{
+      node = undefined;
+    });
   }
 }
 
-export {
-  calcProtoChain
-}
+export default Zrototype;

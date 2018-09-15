@@ -6,13 +6,13 @@ zrototype create graph ↔️ of prototype of given objects.
 
 ## Background
 
-恩，写这个的原因是，有些朋友对于原型链和原型继承的理解有误，然后我解释到不想说话了...这个小轮子，跑一下，就让他们自己看去吧...瘫
+Emm... The reason I write zrototype is some of my friends are misunderstand with [[prototype]] and [[prototype]] chain of Javascript. I explained too many times to say anything... So zrototype is used to tell the truth. 😴
 
 ## Usage
 
 ### Demo
 
-⚠️ If code compression is turn on, the name of function is the compressed name.
+⚠️ If code compression is turned on, the name of function is the compressed name.
 
 ```javascript
 import Zrototype from 'zrototype';
